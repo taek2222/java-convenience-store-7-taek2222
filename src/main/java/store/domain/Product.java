@@ -11,6 +11,10 @@ public class Product {
         this.price = price;
     }
 
+    public int calculateTotalPrice(int quantity) {
+        return quantity * price;
+    }
+
     private void validateName(String name) {
         if (name.isBlank()) {
             throw new IllegalArgumentException();
