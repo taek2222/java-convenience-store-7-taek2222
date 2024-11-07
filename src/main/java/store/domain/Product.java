@@ -1,39 +1,31 @@
 package store.domain;
 
-import static store.constant.ErrorMessage.INVALID_NAME_BLANK;
-import static store.constant.ErrorMessage.INVALID_NAME_NOT_NULL;
-import static store.constant.ErrorMessage.INVALID_PRICE_TOO_LOW;
-import static store.validation.CommonValidator.validateBlank;
-import static store.validation.CommonValidator.validateNull;
-
-import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.List;
+import store.domain.product.Name;
+import store.domain.product.Price;
+import store.domain.product.Promotions;
+import store.domain.product.Quantity;
 
 public class Product {
+    private Name name;
+    private Price price;
+    private Quantity quantity;
+    private Promotions promotions;
 
-    private static final BigInteger MIN_PRICE = BigInteger.ONE;
-
-    private final String name;
-    private final BigInteger price;
-
-    public Product(final String name, final BigInteger price) {
-        validate(name, price);
-        this.name = name.trim(); // 상품 이름 앞뒤 공백 제거
+    public Product(Name name, Price price, Quantity quantity, Promotions promotions) {
+        this.name = name;
         this.price = price;
+        this.quantity = quantity;
+        this.promotions = promotions;
     }
 
-    public BigInteger calculateTotalPrice(final int quantity) {
-        return price.multiply(BigInteger.valueOf(quantity));
-    }
-
-    private void validate(final String name, final BigInteger price) {
-        validateNull(name, INVALID_NAME_NOT_NULL);
-        validateBlank(name, INVALID_NAME_BLANK);
-        validatePrice(price);
-    }
-
-    private void validatePrice(final BigInteger price) {
-        if (price.compareTo(MIN_PRICE) < 0) {
-            throw new IllegalArgumentException(INVALID_PRICE_TOO_LOW.getMessage());
-        }
+    public List<String> buildInfo() {
+        return Arrays.asList(
+                name.toString(),
+                price.toString(),
+                quantity.toString(),
+                promotions.toString()
+        );
     }
 }
