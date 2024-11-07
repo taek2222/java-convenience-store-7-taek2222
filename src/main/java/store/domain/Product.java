@@ -3,6 +3,8 @@ package store.domain;
 import static store.constant.ErrorMessage.INVALID_NAME_BLANK;
 import static store.constant.ErrorMessage.INVALID_NAME_NOT_NULL;
 import static store.constant.ErrorMessage.INVALID_PRICE_TOO_LOW;
+import static store.validation.CommonValidator.validateBlank;
+import static store.validation.CommonValidator.validateNull;
 
 import java.math.BigInteger;
 
@@ -24,21 +26,9 @@ public class Product {
     }
 
     private void validate(final String name, final BigInteger price) {
-        validateNull(name);
-        validateName(name);
+        validateNull(name, INVALID_NAME_NOT_NULL);
+        validateBlank(name, INVALID_NAME_BLANK);
         validatePrice(price);
-    }
-
-    private void validateNull(final String name) {
-        if (name == null) {
-            throw new IllegalArgumentException(INVALID_NAME_NOT_NULL.getMessage());
-        }
-    }
-
-    private void validateName(final String name) {
-        if (name.isBlank()) {
-            throw new IllegalArgumentException(INVALID_NAME_BLANK.getMessage());
-        }
     }
 
     private void validatePrice(final BigInteger price) {
