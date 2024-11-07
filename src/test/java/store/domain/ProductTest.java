@@ -37,6 +37,12 @@ public class ProductTest {
     }
 
     @Test
+    void 등록_이름이_NULL_일_경우_예외가_발생한다() {
+        assertThatThrownBy(() -> new Product(null, 1_000))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     void 등록_이름이_공백일_경우_예외가_발생한다() {
         // given
         String name = " ";
