@@ -30,4 +30,17 @@ public class QuantityTest {
         Assertions.assertThat(toString)
                 .isEqualTo("1,000");
     }
+
+    @Test
+    void 수량이_0개일_경우_재고_없음을_반환한다() {
+        // given
+        Quantity quantity = new Quantity("0");
+
+        // when
+        String toString = quantity.toString();
+
+        // then
+        Assertions.assertThat(toString)
+                .isEqualTo("재고 없음");
+    }
 }
