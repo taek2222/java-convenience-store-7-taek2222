@@ -8,16 +8,16 @@ import store.domain.product.Promotions;
 import store.domain.product.Quantity;
 
 public class Product {
-    private Name name;
-    private Price price;
-    private Quantity quantity;
-    private Promotions promotions;
+    private final Name name;
+    private final Price price;
+    private final Quantity quantity;
+    private final Promotions promotions;
 
-    public Product(Name name, Price price, Quantity quantity, Promotions promotions) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.promotions = promotions;
+    public Product(final String name, final String price, final String quantity, final String promotions) {
+        this.name = new Name(name);
+        this.price = new Price(price);
+        this.quantity = new Quantity(quantity);
+        this.promotions = new Promotions(promotions);
     }
 
     public List<String> buildInfo() {
