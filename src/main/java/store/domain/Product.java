@@ -15,7 +15,19 @@ public class Product {
         return quantity * price;
     }
 
-    private void validateName(String name) {
+    private void validate(String name, int price) {
+        validateNull(name);
+        validateName(name);
+        validatePrice(price);
+    }
+
+    private void validateNull(final String name) {
+        if (name == null) {
+            throw new IllegalArgumentException(INVALID_NAME_NOT_NULL);
+        }
+    }
+
+    private void validateName(final String name) {
         if (name.isBlank()) {
             throw new IllegalArgumentException();
         }
