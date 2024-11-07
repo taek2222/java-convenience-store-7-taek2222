@@ -1,11 +1,12 @@
 package store.domain;
 
+import static store.constant.ErrorMessage.INVALID_NAME_BLANK;
+import static store.constant.ErrorMessage.INVALID_NAME_NOT_NULL;
+import static store.constant.ErrorMessage.INVALID_PRICE_TOO_LOW;
+
 import java.math.BigInteger;
 
 public class Product {
-    public static final String INVALID_NAME_NOT_BLANK = "물품 이름은 공백 및 빈칸일 수 없습니다.";
-    public static final String INVALID_PRICE_MIN = "최소 금액(1원) 이상의 물품만 등록할 수 있습니다.";
-    public static final String INVALID_NAME_NOT_NULL = "물품 이름은 NULL 일 수 없습니다.";
 
     private static final BigInteger MIN_PRICE = BigInteger.ONE;
 
@@ -30,19 +31,19 @@ public class Product {
 
     private void validateNull(final String name) {
         if (name == null) {
-            throw new IllegalArgumentException(INVALID_NAME_NOT_NULL);
+            throw new IllegalArgumentException(INVALID_NAME_NOT_NULL.getMessage());
         }
     }
 
     private void validateName(final String name) {
         if (name.isBlank()) {
-            throw new IllegalArgumentException(INVALID_NAME_NOT_BLANK);
+            throw new IllegalArgumentException(INVALID_NAME_BLANK.getMessage());
         }
     }
 
     private void validatePrice(final BigInteger price) {
         if (price.compareTo(MIN_PRICE) < 0) {
-            throw new IllegalArgumentException(INVALID_PRICE_MIN);
+            throw new IllegalArgumentException(INVALID_PRICE_TOO_LOW.getMessage());
         }
     }
 }
