@@ -9,6 +9,9 @@ import java.util.List;
 
 public class FileInputView {
 
+    private static final String DIRECTORY_PATH = "src/main/resources/";
+    private static final String LINE_DELIMITER = ",";
+
     public List<List<String>> readFile(String fileName) {
         BufferedReader fileReader = openFileReader(fileName);
         return parseLines(fileReader);
@@ -16,7 +19,7 @@ public class FileInputView {
 
     private BufferedReader openFileReader(String fileName) {
         try {
-            File file = new File("src/main/resources/" + fileName);
+            File file = new File(DIRECTORY_PATH + fileName);
             FileReader fileReader = new FileReader(file);
             return new BufferedReader(fileReader);
         } catch (FileNotFoundException e) {
@@ -31,7 +34,7 @@ public class FileInputView {
     }
 
     private List<String> parseLine(String line) {
-        return Arrays.stream(line.split(","))
+        return Arrays.stream(line.split(LINE_DELIMITER))
                 .toList();
     }
 }
