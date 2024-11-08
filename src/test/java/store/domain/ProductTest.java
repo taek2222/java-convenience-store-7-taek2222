@@ -2,7 +2,7 @@ package store.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static store.constant.ErrorMessage.INVALID_PRODUCT_INFO;
+import static store.constant.ErrorMessage.INVALID_PRODUCT_ELEMENT;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -40,6 +40,6 @@ public class ProductTest {
         // when & then
         assertThatThrownBy(() -> new Product(product))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(INVALID_PRODUCT_INFO.getMessage());
+                .hasMessage(INVALID_PRODUCT_ELEMENT.getMessage());
     }
 }
