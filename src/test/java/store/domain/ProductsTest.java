@@ -10,8 +10,8 @@ public class ProductsTest {
     void 전체_상품의_정보를_반환한다() {
         // given
         Products products = new Products();
-        products.addProduct(new Product("콜라", "2000", "5", "테스트할인1"));
-        products.addProduct(new Product("사이다", "1500", "2", "테스트할인2"));
+        products.addProduct(new Product(List.of("콜라", "2000", "5", "테스트할인1")));
+        products.addProduct(new Product(List.of("사이다", "1500", "2", "테스트할인2")));
 
         // when
         List<List<String>> allProductsInfo = products.getAllProductsInfo();

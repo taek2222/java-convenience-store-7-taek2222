@@ -20,7 +20,7 @@ public class ProductTest {
     @Test
     void 단일_상품의_정보를_반환한다() {
         // given
-        Product product = new Product("콜라", "2000", "5", "테스트할인");
+        Product product = new Product(List.of("콜라", "2000", "5", "테스트할인"));
 
         // when
         List<String> info = product.buildInfo();
