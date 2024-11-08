@@ -13,11 +13,11 @@ public class Product {
     private final Quantity quantity;
     private final Promotions promotions;
 
-    public Product(final String name, final String price, final String quantity, final String promotions) {
-        this.name = new Name(name);
-        this.price = new Price(price);
-        this.quantity = new Quantity(quantity);
-        this.promotions = new Promotions(promotions);
+    public Product(final List<String> product) {
+        this.name = new Name(product.get(0));
+        this.price = new Price(product.get(1));
+        this.quantity = new Quantity(product.get(2));
+        this.promotions = new Promotions(product.get(3));
     }
 
     public List<String> buildInfo() {
