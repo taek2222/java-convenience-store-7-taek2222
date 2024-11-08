@@ -7,6 +7,17 @@ import org.junit.jupiter.api.Test;
 public class ProductsTest {
 
     @Test
+    void 전체_상품_정보_리스트로_여러_상품을_등록한다() {
+        // given
+        List<List<String>> products = List.of(List.of("콜라", "2000", "5", "테스트할인1"),
+                List.of("사이다", "1500", "2", "테스트할인2"));
+
+        // when & then
+        Assertions.assertThat(new Products(products))
+                .isNotNull();
+    }
+
+    @Test
     void 전체_상품의_정보를_반환한다() {
         // given
         Products products = new Products();
