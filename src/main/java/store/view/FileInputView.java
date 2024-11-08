@@ -1,6 +1,8 @@
 package store.view;
 
+import static store.constant.ErrorMessage.FILE_CONTAINS_BLANK_CONTENT;
 import static store.constant.ErrorMessage.FILE_NOT_FOUND;
+import static store.validation.CommonValidator.validateBlank;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,6 +40,7 @@ public class FileInputView {
 
     private List<String> parseLine(String line) {
         return Arrays.stream(line.split(LINE_DELIMITER))
+                .peek(element -> validateBlank(element, FILE_CONTAINS_BLANK_CONTENT))
                 .toList();
     }
 }
