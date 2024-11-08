@@ -1,11 +1,14 @@
 package store.view;
 
+import static store.constant.ErrorMessage.FILE_NOT_FOUND;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
 import java.util.List;
+import store.exception.FileException;
 
 public class FileInputView {
 
@@ -23,7 +26,7 @@ public class FileInputView {
             FileReader fileReader = new FileReader(file);
             return new BufferedReader(fileReader);
         } catch (FileNotFoundException e) {
-            throw new IllegalArgumentException();
+            throw new FileException(FILE_NOT_FOUND, fileName);
         }
     }
 
