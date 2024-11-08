@@ -5,7 +5,9 @@ public enum ErrorMessage {
     INVALID_NAME_BLANK("물품 이름은 공백 및 빈칸일 수 없습니다."),
     INVALID_PRICE_TOO_LOW("최소 금액 %d원 이상의 물품만 등록할 수 있습니다."),
 
-    FILE_NOT_FOUND("%s 파일을 찾을 수 없습니다.");
+    FILE_NOT_FOUND("%s 파일을 찾을 수 없습니다."),
+    FILE_CONTENT_NULL("파일의 내용이 NULL 입니다."),
+    FILE_CONTENT_INSUFFICIENT("파일의 정보가 부족합니다.");
 
     private static final String ERROR_PREFIX = "[ERROR] ";
     private final String message;

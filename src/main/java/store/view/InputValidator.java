@@ -1,12 +1,21 @@
 package store.view;
 
+import static store.constant.ErrorMessage.FILE_CONTENT_INSUFFICIENT;
+import static store.constant.ErrorMessage.FILE_CONTENT_NULL;
+
 import java.util.List;
+import store.exception.FileException;
 
 public class InputValidator {
 
-    public static void validateFileContents(List<List<String>> input) {
-        if (input == null || input.size() == 1) {
-            throw new IllegalArgumentException();
+    private static final int MINIMUM_VALID_LINES = 1;
+
+    public static void validateNonEmptyFileContents(List<List<String>> input) {
+        if (input == null) {
+            throw new FileException(FILE_CONTENT_NULL);
+        }
+        if (input.size() <= MINIMUM_VALID_LINES) {
+            throw new FileException(FILE_CONTENT_INSUFFICIENT);
         }
     }
 }
