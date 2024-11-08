@@ -1,9 +1,6 @@
 package store.constant;
 
 public enum ErrorMessage {
-    INVALID_NAME_NOT_NULL("물품 이름은 NULL 일 수 없습니다."),
-    INVALID_NAME_BLANK("물품 이름은 공백 및 빈칸일 수 없습니다."),
-
     INVALID_PRICE_NUMERIC("물품 가격은 숫자만 가능합니다. 다시 확인해 주세요."),
     INVALID_PRICE_OUT_OF_RANGE("물품 가격의 범위내만 등록할 수 있습니다. 다시 확인해 주세요."),
 
