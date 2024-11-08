@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileInput {
+public class FileInputView {
 
     public List<List<String>> readFile(String fileName) {
         BufferedReader fileContents = loadFileContents(fileName);
