@@ -2,6 +2,8 @@ package store.domain.product;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class NameTest {
 
@@ -17,5 +19,18 @@ public class NameTest {
         // then
         Assertions.assertThat(toString)
                 .isEqualTo(productName);
+    }
+
+    @Test
+    void 등록_이름이_null_일_경우_예외가_발생한다() {
+        Assertions.assertThatThrownBy(() -> new Name(null))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest(name = "테스트 이름 = [{arguments}]")
+    @ValueSource(strings = {" ", ""})
+    void 등록_이름이_공백일_경우_예외가_발생한다(String name) {
+        Assertions.assertThatThrownBy(() -> new Name(name))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
