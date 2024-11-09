@@ -1,6 +1,6 @@
-package store.validation;
+package store.global.validation;
 
-import store.constant.ErrorMessage;
+import store.global.constant.ErrorMessage;
 
 public class CommonValidator {
 

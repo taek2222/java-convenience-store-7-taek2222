@@ -2,8 +2,8 @@ package store.domain.product;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static store.constant.ErrorMessage.INVALID_QUANTITY_NUMERIC;
-import static store.constant.ErrorMessage.INVALID_QUANTITY_OUT_OF_RANGE;
+import static store.global.constant.ErrorMessage.INVALID_QUANTITY_NUMERIC;
+import static store.global.constant.ErrorMessage.INVALID_QUANTITY_OUT_OF_RANGE;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

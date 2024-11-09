@@ -1,6 +1,6 @@
 package store.domain;
 
-import static store.constant.ErrorMessage.INVALID_PRODUCT_ELEMENT;
+import static store.global.constant.ErrorMessage.INVALID_PRODUCT_ELEMENT;
 
 import java.util.Arrays;
 import java.util.List;

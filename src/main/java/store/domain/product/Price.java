@@ -1,8 +1,8 @@
 package store.domain.product;
 
-import static store.constant.ErrorMessage.INVALID_PRICE_NUMERIC;
-import static store.constant.ErrorMessage.INVALID_PRICE_OUT_OF_RANGE;
-import static store.validation.CommonValidator.validateNotNumeric;
+import static store.global.constant.ErrorMessage.INVALID_PRICE_NUMERIC;
+import static store.global.constant.ErrorMessage.INVALID_PRICE_OUT_OF_RANGE;
+import static store.global.validation.CommonValidator.validateNotNumeric;
 
 import java.text.DecimalFormat;
 

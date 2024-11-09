@@ -1,6 +1,6 @@
-package store.exception;
+package store.global.exception;
 
-import store.constant.ErrorMessage;
+import store.global.constant.ErrorMessage;
 
 public class FileException extends RuntimeException {
     public FileException(ErrorMessage error, String fileName) {

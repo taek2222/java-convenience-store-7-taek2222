@@ -1,10 +1,10 @@
 package store.view;
 
-import static store.constant.ErrorMessage.FILE_CONTENT_INSUFFICIENT;
-import static store.constant.ErrorMessage.FILE_CONTENT_NULL;
+import static store.global.constant.ErrorMessage.FILE_CONTENT_INSUFFICIENT;
+import static store.global.constant.ErrorMessage.FILE_CONTENT_NULL;
 
 import java.util.List;
-import store.exception.FileException;
+import store.global.exception.FileException;
 
 public class InputValidator {
 

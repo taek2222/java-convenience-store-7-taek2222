@@ -1,8 +1,8 @@
 package store.view;
 
-import static store.constant.ErrorMessage.FILE_CONTAINS_BLANK_CONTENT;
-import static store.constant.ErrorMessage.FILE_NOT_FOUND;
-import static store.validation.CommonValidator.validateBlank;
+import static store.global.constant.ErrorMessage.FILE_CONTAINS_BLANK_CONTENT;
+import static store.global.constant.ErrorMessage.FILE_NOT_FOUND;
+import static store.global.validation.CommonValidator.validateBlank;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
 import java.util.List;
-import store.exception.FileException;
+import store.global.exception.FileException;
 
 public class FileInputView {
 

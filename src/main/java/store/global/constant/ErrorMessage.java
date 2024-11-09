@@ -1,4 +1,4 @@
-package store.constant;
+package store.global.constant;
 
 public enum ErrorMessage {
     INVALID_PRICE_NUMERIC("물품 가격은 숫자만 가능합니다. 다시 확인해 주세요."),

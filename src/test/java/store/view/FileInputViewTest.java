@@ -1,12 +1,12 @@
 package store.view;
 
-import static store.constant.ErrorMessage.FILE_NOT_FOUND;
+import static store.global.constant.ErrorMessage.FILE_NOT_FOUND;
 
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import store.exception.FileException;
+import store.global.exception.FileException;
 
 public class FileInputViewTest {
 

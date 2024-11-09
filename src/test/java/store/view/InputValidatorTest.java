@@ -1,7 +1,7 @@
 package store.view;
 
-import static store.constant.ErrorMessage.FILE_CONTENT_INSUFFICIENT;
-import static store.constant.ErrorMessage.FILE_CONTENT_NULL;
+import static store.global.constant.ErrorMessage.FILE_CONTENT_INSUFFICIENT;
+import static store.global.constant.ErrorMessage.FILE_CONTENT_NULL;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import store.exception.FileException;
+import store.global.exception.FileException;
 
 public class InputValidatorTest {
 

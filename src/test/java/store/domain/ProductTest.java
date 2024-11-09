@@ -2,7 +2,7 @@ package store.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static store.constant.ErrorMessage.INVALID_PRODUCT_ELEMENT;
+import static store.global.constant.ErrorMessage.INVALID_PRODUCT_ELEMENT;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
