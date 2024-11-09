@@ -27,9 +27,10 @@ public class QuantityTest {
     @Test
     void 수량이_0개일_경우_재고_없음을_반환한다() {
         // given
-        Quantity quantity = new Quantity("0");
+        Quantity quantity = new Quantity("1");
 
         // when
+        quantity.decreaseStock(1);
         String toString = quantity.toString();
 
         // then
