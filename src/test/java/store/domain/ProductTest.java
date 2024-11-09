@@ -42,4 +42,17 @@ public class ProductTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_PRODUCT_ELEMENT.getMessage());
     }
+
+    @Test
+    void 이름이_같은_경우_상품을_반환한다() {
+        // given
+        String name = "콜라";
+        Product product = new Product(List.of(name, "2000", "5", "테스트할인"));
+
+        // when
+        Product result = product.findEqualsName(name);
+
+        // then
+        assertThat(result).isEqualTo(product);
+    }
 }
