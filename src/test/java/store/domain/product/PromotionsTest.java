@@ -1,6 +1,7 @@
 package store.domain.product;
 
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 
 public class PromotionsTest {
@@ -14,7 +15,20 @@ public class PromotionsTest {
         String toString = promotions.toString();
 
         // then
-        Assertions.assertThat(toString)
+        assertThat(toString)
                 .isEqualTo("테스트할인");
+    }
+
+    @Test
+    void 프로모션_null_일_때_빈값을_반환한다() {
+        // given
+        Promotions promotions = new Promotions("null");
+
+        // when
+        String toString = promotions.toString();
+
+        // then
+        assertThat(toString)
+                .isEqualTo("");
     }
 }
