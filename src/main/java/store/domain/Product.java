@@ -36,6 +36,12 @@ public class Product {
         );
     }
 
+    public Product findEqualsName(String name) {
+        if (this.name.toString().equals(name))
+            return this;
+        return null;
+    }
+
     private void validateProductElementSize(List<String> product) {
         if (product.size() != ELEMENT_SIZE) {
             throw new IllegalArgumentException(INVALID_PRODUCT_ELEMENT.getMessage());
