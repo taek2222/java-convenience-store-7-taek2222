@@ -34,4 +34,19 @@ public class ProductsTest {
                 List.of("사이다", "1,500", "2", "테스트할인2")
         );
     }
+
+    @Test
+    void 상품_목록에서_이름이_같은_상품을_찾는다() {
+        // given
+        String name = "콜라";
+        List<String> product = List.of(name, "2000", "5", "테스트할인1");
+        Products products = new Products(List.of(product));
+
+        // when
+        List<Product> result = products.findProductByEqualsName(name);
+
+        // then
+        Assertions.assertThat(result)
+                .isEqualTo(product);
+    }
 }
