@@ -20,4 +20,10 @@ public class Products {
                 .map(Product::new)
                 .toList();
     }
+
+    public List<Product> findProductByEqualsName(String name) {
+        return products.stream()
+                .map(product -> product.findEqualsName(name))
+                .toList();
+    }
 }
