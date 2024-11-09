@@ -18,6 +18,19 @@ public class ProductsTest {
     }
 
     @Test
+    void 프로모션이_존재할_경우_기본_상품도_등록된다() {
+        // given
+        Products products = new Products(List.of(
+                List.of("콜라", "2000", "5", "테스트할인1"),
+                List.of("사이다", "1500", "2", "테스트할인2")
+        ));
+
+        // then
+        Assertions.assertThat(products.getAllProductsInfo())
+                .hasSize(4);
+    }
+
+    @Test
     void 전체_상품의_정보를_반환한다() {
         // given
         Products products = new Products(List.of(
@@ -39,7 +52,7 @@ public class ProductsTest {
     void 상품_목록에서_이름이_같은_상품을_찾는다() {
         // given
         String name = "콜라";
-        List<String> product1 = List.of(name, "2000", "5", "null");
+        List<String> product1 = List.of(name, "2000", "5", "테스트할인");
         List<String> product2 = List.of(name, "2000", "3", "null");
         Products products = new Products(List.of(product1, product2));
 
