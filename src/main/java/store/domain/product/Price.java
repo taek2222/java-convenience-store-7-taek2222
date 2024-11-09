@@ -11,6 +11,7 @@ public class Price {
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###,###");
     private static final int MINIMUM_PRICE = 1;
     private static final int MAXIMUM_PRICE = 1_000_000;
+    private static final String UNIT = "원";
 
     private final int price;
 
@@ -23,7 +24,7 @@ public class Price {
 
     @Override
     public String toString() {
-        return DECIMAL_FORMAT.format(price);
+        return DECIMAL_FORMAT.format(price) + UNIT;
     }
 
     private void validateRange(final int price) {

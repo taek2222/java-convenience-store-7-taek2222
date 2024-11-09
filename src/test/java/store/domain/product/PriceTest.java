@@ -20,7 +20,7 @@ public class PriceTest {
 
         // then
         Assertions.assertThat(toString)
-                .isEqualTo("2,000");
+                .isEqualTo("2,000원");
     }
 
     @Test
