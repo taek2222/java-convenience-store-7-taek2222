@@ -10,7 +10,7 @@ public class Quantity {
 
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###,###");
 
-    private static final int MINIMUM_QUANTITY = 1;
+    private static final int MINIMUM_QUANTITY = 0;
     private static final int MAXIMUM_QUANTITY = 1_000_000;
 
     private int quantity;

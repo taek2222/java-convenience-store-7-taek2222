@@ -27,10 +27,9 @@ public class QuantityTest {
     @Test
     void 수량이_0개일_경우_재고_없음을_반환한다() {
         // given
-        Quantity quantity = new Quantity("1");
+        Quantity quantity = new Quantity("0");
 
         // when
-        quantity.decreaseStock(1);
         String toString = quantity.toString();
 
         // then
@@ -46,7 +45,7 @@ public class QuantityTest {
     }
 
     @ParameterizedTest(name = "테스트 수량 : [{arguments}]")
-    @ValueSource(strings = {"0", "-1000"})
+    @ValueSource(strings = {"-1", "-1000"})
     void 등록_수량이_최소보다_작을_경우_예외가_발생한다(String quantity) {
         assertThatThrownBy(() -> new Quantity(quantity))
                 .isInstanceOf(IllegalArgumentException.class)
