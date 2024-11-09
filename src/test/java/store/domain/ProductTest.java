@@ -25,11 +25,11 @@ public class ProductTest {
         Product product = new Product(List.of("콜라", "2000", "5", "테스트할인"));
 
         // when
-        List<String> info = product.buildInfo();
+        String info = product.buildInfo();
 
         // then
         assertThat(info)
-                .containsExactly("콜라", "2,000", "5", "테스트할인");
+                .isEqualTo("콜라 2,000원 5개 테스트할인");
     }
 
     @Test

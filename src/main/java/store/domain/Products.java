@@ -11,7 +11,7 @@ public class Products {
         this.products = createProducts(products);
     }
 
-    public List<List<String>> getAllProductsInfo() {
+    public List<String> getAllProductsInfo() {
         return products.stream()
                 .map(Product::buildInfo)
                 .toList();

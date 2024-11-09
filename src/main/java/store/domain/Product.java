@@ -27,13 +27,13 @@ public class Product {
         this.promotions = new Promotions(product.get(3));
     }
 
-    public List<String> buildInfo() {
-        return Arrays.asList(
+    public String buildInfo() {
+        return String.join(
                 name.toString(),
                 price.toString(),
                 quantity.toString(),
                 promotions.toString()
-        );
+        ).trim();
     }
 
     public Product findEqualsName(String name) {
