@@ -12,6 +12,7 @@ import store.domain.product.Quantity;
 public class Product {
 
     private static final int ELEMENT_SIZE = 4;
+    private static final String INFO_DELIMITER = " ";
 
     private final Name name;
     private final Price price;
@@ -28,7 +29,7 @@ public class Product {
     }
 
     public String buildInfo() {
-        return String.join(
+        return String.join(INFO_DELIMITER,
                 name.toString(),
                 price.toString(),
                 quantity.toString(),
