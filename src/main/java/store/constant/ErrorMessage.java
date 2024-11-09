@@ -2,7 +2,10 @@ package store.constant;
 
 public enum ErrorMessage {
     INVALID_PRICE_NUMERIC("물품 가격은 숫자만 가능합니다. 다시 확인해 주세요."),
-    INVALID_PRICE_OUT_OF_RANGE("물품 가격의 범위내만 등록할 수 있습니다. 다시 확인해 주세요."),
+    INVALID_PRICE_OUT_OF_RANGE("물품 가격은 범위내만 등록할 수 있습니다. 다시 확인해 주세요."),
+
+    INVALID_QUANTITY_NUMERIC("물품 수량은 숫자만 가능합니다. 다시 확인해 주세요."),
+    INVALID_QUANTITY_OUT_OF_RANGE("물품 수량은 범위내만 등록할 수 있습니다. 다시 확인해 주세요."),
 
     INVALID_PRODUCT_ELEMENT("상품 정보의 요소가 올바르지 않았습니다. 파일을 확인해 주세요."),
 
