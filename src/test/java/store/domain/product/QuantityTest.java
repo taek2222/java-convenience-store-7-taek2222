@@ -21,7 +21,7 @@ public class QuantityTest {
 
         // then
         assertThat(toString)
-                .isEqualTo("1,000");
+                .isEqualTo("1,000개");
     }
 
     @Test

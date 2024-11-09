@@ -12,6 +12,7 @@ public class Quantity {
 
     private static final int MINIMUM_QUANTITY = 0;
     private static final int MAXIMUM_QUANTITY = 1_000_000;
+    private static final String UNIT = "개";
 
     private int quantity;
 
@@ -26,7 +27,7 @@ public class Quantity {
     public String toString() {
         if (quantity == 0)
             return "재고 없음";
-        return DECIMAL_FORMAT.format(quantity);
+        return DECIMAL_FORMAT.format(quantity) + UNIT;
     }
 
     public void decreaseStock(final int quantity) {
