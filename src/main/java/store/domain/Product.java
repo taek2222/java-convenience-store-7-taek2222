@@ -51,4 +51,16 @@ public class Product {
                 quantity.toString()
         );
     }
+
+    public int calculatePromotionRate(int quantity) {
+        return promotions.calculateRemainingItems(quantity);
+    }
+
+    public String getProductName() {
+        return name.toString();
+    }
+
+    public boolean isPromotionAdditionalProduct(int quantity) {
+        return promotions.isPromotionApplicable(quantity);
+    }
 }
