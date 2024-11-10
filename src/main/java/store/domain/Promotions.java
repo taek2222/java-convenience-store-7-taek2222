@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 public class Promotions {
 
-    private static final String NAME_BLANK = "";
-
     private final String name;
     private final int buy;
     private final int get;
@@ -27,5 +25,13 @@ public class Promotions {
 
     public boolean hasName(String name) {
         return this.name.equals(name);
+    }
+
+    public boolean isPromotionApplicable(int quantity) {
+        return calculateRemainingItems(quantity) >= get;
+    }
+
+    public int calculateRemainingItems(int quantity) {
+        return quantity % (buy + get);
     }
 }
