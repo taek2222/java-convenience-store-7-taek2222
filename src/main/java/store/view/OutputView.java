@@ -17,4 +17,8 @@ public class OutputView {
     public void printProductsInfo(List<String> products) {
         products.forEach(product -> System.out.println(PRODUCT_PREFIX + product));
     }
+
+    public void printErrorMessage(String message) {
+        System.out.println(message);
+    }
 }
