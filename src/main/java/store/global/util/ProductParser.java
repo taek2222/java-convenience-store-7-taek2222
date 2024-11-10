@@ -1,47 +1,60 @@
 package store.global.util;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import store.global.constant.ErrorMessage;
-import store.global.validation.CommonValidator;
+import java.util.ArrayList;
+import java.util.List;
+import store.domain.Product;
+import store.domain.PromotionsList;
+import store.domain.product.Name;
+import store.domain.product.Price;
+import store.domain.product.Quantity;
 
 public class ProductParser {
+    private static final String DEFAULT_QUANTITY = "0";
+    private static final String NO_PROMOTION = "null";
 
-    public static Map<String, Integer> parseInputProduct(String input) {
-        Pattern pattern = Pattern.compile("^\\[(.*?)-(\\d+)]$");
-        Map<String, Integer> product = new HashMap<>();
+    private static PromotionsList promotionsList;
 
-        Pattern compile = Pattern.compile("^\\[.*]$");
-        Matcher matcher1 = compile.matcher(input);
-        if (!matcher1.find())
-            throw new IllegalArgumentException();
+    public static List<Product> parseToProducts(final List<List<String>> inputData, final PromotionsList promotionsList) {
+        ProductParser.promotionsList = promotionsList;
 
-        String[] split = input.split(",");
-
-        for (String s : split) {
-            Matcher matcher = pattern.matcher(s);
-            System.out.println(s);
-
-            if (!matcher.find() || matcher.groupCount() != 2) {
-                throw new IllegalArgumentException();
-            }
-
-            String name = matcher.group(1);
-
-            Pattern compile12 = Pattern.compile("[-\\[\\]]");
-            Matcher matcher12 = compile12.matcher(name);
-
-            if (matcher12.find())
-                throw new IllegalArgumentException();
-            CommonValidator.validateBlank(name, ErrorMessage.INVALID_PRODUCT_ELEMENT);
-
-            int quantity = Integer.parseInt(matcher.group(2));
-
-            System.out.println(name + " " + quantity);
-            product.merge(name, quantity, Integer::sum);
+        List<Product> products = new ArrayList<>();
+        for (List<String> productData : inputData) {
+            Product product = createProduct(productData);
+            products.add(product);
+            addDefaultProductIfNecessary(products, inputData, productData, product);
         }
-        return product;
+        return products;
+    }
+
+    private static void addDefaultProductIfNecessary(List<Product> products, List<List<String>> inputData,
+                                                     List<String> productData, Product product) {
+        if (product.hasPromotion() && isSingleProductInInput(inputData, productData)) {
+            Product defaultProduct = createDefaultProduct(productData);
+            products.add(defaultProduct);
+        }
+    }
+
+    private static boolean isSingleProductInInput(List<List<String>> inputData, List<String> productData) {
+        return inputData.stream()
+                .filter(info -> info.contains(productData.get(0)))
+                .count() == 1;
+    }
+
+    private static Product createDefaultProduct(List<String> productData) {
+        return createProduct(List.of(
+                productData.get(0),
+                productData.get(1),
+                DEFAULT_QUANTITY,
+                NO_PROMOTION
+        ));
+    }
+
+    private static Product createProduct(List<String> productData) {
+        return new Product(
+                new Name(productData.get(0)),
+                new Price(productData.get(1)),
+                new Quantity(productData.get(2)),
+                promotionsList.findPromotion(productData.get(3))
+        );
     }
 }
