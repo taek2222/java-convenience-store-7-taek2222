@@ -4,7 +4,7 @@ import static store.global.constant.ErrorMessage.INVALID_INPUT_PURCHASE;
 import static store.global.validation.CommonValidator.validateBlank;
 import static store.global.validation.CommonValidator.validateNotNumeric;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +18,7 @@ public class PurchaseParser {
         validateInput(input);
 
         String[] split = input.split(",");
-        Map<String, Integer> product = new HashMap<>();
+        LinkedHashMap<String, Integer> product = new LinkedHashMap<>();
 
         for (String s : split) {
             Matcher matcher = PRODUCT_PATTERN.matcher(s);
