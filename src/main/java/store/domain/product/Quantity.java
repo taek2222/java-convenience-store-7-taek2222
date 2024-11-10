@@ -30,8 +30,8 @@ public class Quantity {
         return DECIMAL_FORMAT.format(quantity) + UNIT;
     }
 
-    public void decreaseStock(final int quantity) {
-        this.quantity -= quantity;
+    public int calculateDifference(int quantity) {
+        return quantity - this.quantity;
     }
 
     private void validateRange(final int quantity) {
