@@ -1,17 +1,11 @@
 package store.domain;
 
-import static store.global.constant.ErrorMessage.INVALID_PRODUCT_ELEMENT;
-
-import java.util.Arrays;
-import java.util.List;
 import store.domain.product.Name;
 import store.domain.product.Price;
-import store.domain.product.Promotions;
 import store.domain.product.Quantity;
 
 public class Product {
 
-    private static final int ELEMENT_SIZE = 4;
     private static final String INFO_DELIMITER = " ";
 
     private final Name name;
@@ -19,33 +13,42 @@ public class Product {
     private final Quantity quantity;
     private final Promotions promotions;
 
-    public Product(final List<String> product) {
-        validateProductElementSize(product);
-
-        this.name = new Name(product.get(0));
-        this.price = new Price(product.get(1));
-        this.quantity = new Quantity(product.get(2));
-        this.promotions = new Promotions(product.get(3));
+    public Product(Name name, Price price, Quantity quantity, Promotions promotions) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.promotions = promotions;
     }
 
-    public String buildInfo() {
+    @Override
+    public String toString() {
+        String info = buildInfo();
+
+        if (hasPromotion()) {
+            return String.join(INFO_DELIMITER,
+                    info,
+                    promotions.toString());
+        }
+        return info;
+    }
+
+    public int calculateRemainingStock(int purchaseQuantity) {
+        return quantity.calculateDifference(purchaseQuantity);
+    }
+
+    public boolean hasSameName(String name) {
+        return this.name.toString().equals(name);
+    }
+
+    public boolean hasPromotion() {
+        return this.promotions != null;
+    }
+
+    private String buildInfo() {
         return String.join(INFO_DELIMITER,
                 name.toString(),
                 price.toString(),
-                quantity.toString(),
-                promotions.toString()
-        ).trim();
-    }
-
-    public Product findEqualsName(String name) {
-        if (this.name.toString().equals(name))
-            return this;
-        return null;
-    }
-
-    private void validateProductElementSize(List<String> product) {
-        if (product.size() != ELEMENT_SIZE) {
-            throw new IllegalArgumentException(INVALID_PRODUCT_ELEMENT.getMessage());
-        }
+                quantity.toString()
+        );
     }
 }
