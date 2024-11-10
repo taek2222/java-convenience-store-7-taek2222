@@ -1,14 +1,14 @@
 package store.domain;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
+import store.global.constant.ErrorMessage;
 
 public class Products {
     List<Product> products;
 
-    public Products(List<List<String>> products) {
-        this.products = createProducts(products);
+    public Products(List<Product> products) {
+        this.products = products;
     }
 
     public List<String> getAllProductsInfo() {
@@ -17,44 +17,18 @@ public class Products {
                 .toList();
     }
 
-    private List<Product> createProducts(List<List<String>> productsData) {
-        List<Product> productList = new ArrayList<>();
-        for (List<String> productData : productsData) {
-            Product product = new Product(productData);
-            productList.add(product);
-            addProductWithDefault(productsData, productList, productData);
-        }
-        return productList;
-    }
-
-    private void addProductWithDefault(List<List<String>> productsData, List<Product> productList, List<String> productData) {
-        if (!isNotNull(productData)) {
-            return;
-        }
-        Optional<List<String>> optional = findOptionalProduct(productsData, productData);
-        if (optional.isEmpty()) {
-            productList.add(createDefaultProduct(productData));
-        }
-    }
-
-    private boolean isNotNull(List<String> productData) {
-        return !productData.get(3).equals("null");
-    }
-
-    private Optional<List<String>> findOptionalProduct(List<List<String>> productsData, List<String> productData) {
-        return productsData.stream()
-                .filter(e -> e.getFirst().equals(productData.getFirst()))
-                .filter(e -> e.get(3).equals("null"))
-                .findFirst();
-    }
-
-    private Product createDefaultProduct(List<String> productData) {
-        return new Product(List.of(productData.get(0), productData.get(1), "0", "null"));
-    }
-
     public List<Product> findProductByEqualsName(String name) {
-        return products.stream()
+        List<Product> list = products.stream()
                 .map(product -> product.findEqualsName(name))
+                .filter(Objects::nonNull)
                 .toList();
+        validateProductListNotEmpty(list);
+        return list;
+    }
+
+    private void validateProductListNotEmpty(List<Product> list) {
+        if (list.isEmpty()) {
+            throw new IllegalArgumentException(ErrorMessage.PRODUCT_NOT_FOUND.getMessage());
+        }
     }
 }
