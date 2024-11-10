@@ -1,7 +1,6 @@
 package store.domain;
 
 import java.util.List;
-import java.util.Objects;
 import store.global.constant.ErrorMessage;
 
 public class Products {
@@ -13,14 +12,13 @@ public class Products {
 
     public List<String> getAllProductsInfo() {
         return products.stream()
-                .map(Product::buildInfo)
+                .map(Product::toString)
                 .toList();
     }
 
     public List<Product> findProductByEqualsName(String name) {
         List<Product> list = products.stream()
-                .map(product -> product.findEqualsName(name))
-                .filter(Objects::nonNull)
+                .filter(product -> product.hasSameName(name))
                 .toList();
         validateProductListNotEmpty(list);
         return list;
