@@ -35,6 +35,7 @@ public class OutputView {
     }
 
     public void printPaymentInfoResult(List<String> infos) {
+        System.out.printf(NEW_LINE.getMessage());
         System.out.println(OUTPUT_HEADER_STORE.getMessage());
         System.out.printf(FORMAT.getMessage() + NEW_LINE.getMessage(), "상품명", "수량", "금액");
         infos.forEach(System.out::println);
