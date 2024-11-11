@@ -2,17 +2,28 @@ package store.domain;
 
 import static store.global.constant.ErrorMessage.INSUFFICIENT_STOCK;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 public class PurchaseProduct {
     private final List<Product> products;
-    private final int quantity;
+    private int quantity;
 
     public PurchaseProduct(List<Product> products, int quantity) {
         this.products = products;
         validateSufficientStock(quantity);
         this.quantity = quantity;
+    }
+
+    public PaymentProduct createPaymentProduct(int i) {
+        return new PaymentProduct(
+                getProductName(),
+                quantity,
+                products.get(0).getProductPrice(),
+                i
+        );
     }
 
     public String getProductName() {
@@ -25,6 +36,10 @@ public class PurchaseProduct {
 
     public int calculatePromotionRate(int remainingStock) {
         return products.get(0).calculatePromotionRate(quantity - remainingStock);
+    }
+
+    public int calculate() {
+        return products.get(0).calculate(quantity);
     }
 
     public boolean hasPromotionProduct() {
@@ -46,5 +61,13 @@ public class PurchaseProduct {
 
     public boolean isPromotionAdditionalProduct() {
         return products.get(0).isPromotionAdditionalProduct(quantity);
+    }
+
+    public void decrease(int quantity) {
+        this.quantity -= quantity;
+    }
+
+    public boolean nodatelate(LocalDateTime now) {
+        return products.getFirst().late(LocalDate.from(now));
     }
 }
