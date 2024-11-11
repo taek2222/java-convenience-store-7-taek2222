@@ -1,6 +1,6 @@
 package store.view;
 
-import static store.global.constant.Message.FORMAT;
+import static store.global.constant.MessageConstant.FORMAT;
 
 import java.util.List;
 
