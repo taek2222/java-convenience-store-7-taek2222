@@ -27,7 +27,8 @@ public class OutputView {
     }
 
     public void printPromotionNotApplied(String name, int quantity) {
-        System.out.printf(NEW_LINE.getMessage() + OUTPUT_PROMOTION_NOT_APPLIED.getMessage() + NEW_LINE.getMessage(), name, quantity);
+        System.out.printf(NEW_LINE.getMessage() + OUTPUT_PROMOTION_NOT_APPLIED.getMessage() + NEW_LINE.getMessage(),
+                name, quantity);
     }
 
     public void printPromotionAddition(String name) {

@@ -32,8 +32,9 @@ public class PurchaseProduct {
 
     public void reduceProductStock(int quantity) {
         int remainQuantity = products.getFirst().decreaseStock(quantity);
-        if (hasPromotionProduct())
+        if (hasPromotionProduct()) {
             products.get(1).decreaseStock(remainQuantity);
+        }
     }
 
     public String getProductName() {

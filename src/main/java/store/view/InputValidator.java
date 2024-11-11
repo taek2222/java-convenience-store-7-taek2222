@@ -21,7 +21,8 @@ public class InputValidator {
     }
 
     public static void validateYesOrNoInput(String input) {
-        if (!input.equals("Y") && !input.equals("N"))
+        if (!input.equals("Y") && !input.equals("N")) {
             throw new IllegalArgumentException(INVALID_INPUT.getMessage());
+        }
     }
 }

@@ -68,7 +68,8 @@ public class StoreController {
         }
     }
 
-    private void processSinglePurchase(PaymentProductList paymentProductList, PurchaseProduct purchase, LocalDateTime now) {
+    private void processSinglePurchase(PaymentProductList paymentProductList, PurchaseProduct purchase,
+                                       LocalDateTime now) {
         if (purchase.hasPromotionProduct() && purchase.isWithinPromotionPeriod(now)) {
             handlePromotionProduct(paymentProductList, purchase);
             return;
@@ -91,7 +92,8 @@ public class StoreController {
         paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate));
     }
 
-    private void handleRemainingStock(PaymentProductList paymentProductList, PurchaseProduct purchase, int remainingStock) {
+    private void handleRemainingStock(PaymentProductList paymentProductList, PurchaseProduct purchase,
+                                      int remainingStock) {
         int quantity = calculateQuantity(purchase, remainingStock);
 
         if (!confirmPromotionNotApplied(purchase.getProductName(), quantity)) {

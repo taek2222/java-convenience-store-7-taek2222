@@ -14,7 +14,8 @@ public class ProductParser {
 
     private static PromotionsList promotionsList;
 
-    public static List<Product> parseToProducts(final List<List<String>> inputData, final PromotionsList promotionsList) {
+    public static List<Product> parseToProducts(final List<List<String>> inputData,
+                                                final PromotionsList promotionsList) {
         ProductParser.promotionsList = promotionsList;
 
         List<Product> products = new ArrayList<>();

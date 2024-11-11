@@ -13,7 +13,7 @@ public class Promotions {
     public Promotions(String name, String buy, String get, String startDate, String endDate) {
         this.name = name;
         this.buy = Integer.parseInt(buy);
-        this.get =  Integer.parseInt(get);
+        this.get = Integer.parseInt(get);
         this.startDate = LocalDate.parse(startDate);
         this.endDate = LocalDate.parse(endDate);
     }
