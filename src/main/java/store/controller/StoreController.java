@@ -35,7 +35,7 @@ public class StoreController {
             PaymentProductList paymentProductList = processPurchases(purchases);
 
             displayPaymentInfo(paymentProductList);
-        } while (inputView.readAdditionalPurchaseConfirmation());
+        } while (readAdditionalPurchaseConfirmationWithRetry());
     }
 
     private void displayWelcome(Products products) {
@@ -86,8 +86,7 @@ public class StoreController {
     private void handleRemainingStock(PaymentProductList paymentProductList, PurchaseProduct purchase, int remainingStock) {
         int quantity = calculateQuantity(purchase, remainingStock);
 
-        outputView.printPromotionNotApplied(purchase.getProductName(), quantity);
-        if (!inputView.readYesOrNoInput()) {
+        if (!confirmPromotionNotApplied(purchase.getProductName(), quantity)) {
             purchase.decrease(quantity);
         }
 
@@ -104,8 +103,7 @@ public class StoreController {
     }
 
     private void handleNonZeroRemainingStock(PaymentProductList paymentProductList, PurchaseProduct purchase) {
-        outputView.printPromotionAddition(purchase.getProductName());
-        boolean answer = inputView.readYesOrNoInput();
+        boolean answer = confirmPromotionAddition(purchase.getProductName());
         purchase.calculatePromotionRate(0);
         int calculate = purchase.calculate();
         if (answer) {
@@ -125,7 +123,7 @@ public class StoreController {
     }
 
     private void applyMembershipDiscountIfConfirmed(PaymentProductList paymentProductList) {
-        if (inputView.readMembershipConfirmation()) {
+        if (readMembershipConfirmationWithRetry()) {
             paymentProductList.applyMembershipDiscount();
         }
     }
@@ -173,5 +171,47 @@ public class StoreController {
             purchaseProducts.add(new PurchaseProduct(foundProducts, entry.getValue()));
         }
         return purchaseProducts;
+    }
+
+    private boolean confirmPromotionNotApplied(String productName, int quantity) {
+        while (true) {
+            try {
+                outputView.printPromotionNotApplied(productName, quantity);
+                return inputView.readYesOrNoInput();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private boolean confirmPromotionAddition(String productName) {
+        while (true) {
+            try {
+                outputView.printPromotionAddition(productName);
+                return inputView.readYesOrNoInput();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private boolean readMembershipConfirmationWithRetry() {
+        while (true) {
+            try {
+                return inputView.readMembershipConfirmation();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private boolean readAdditionalPurchaseConfirmationWithRetry() {
+        while (true) {
+            try {
+                return inputView.readAdditionalPurchaseConfirmation();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
     }
 }
