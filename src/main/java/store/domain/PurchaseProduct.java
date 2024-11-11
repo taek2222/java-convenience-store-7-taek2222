@@ -26,11 +26,11 @@ public class PurchaseProduct {
         );
     }
 
-    public void promotionIncreaseQuantity() {
+    public void increaseQuantityForPromotion() {
         quantity++;
     }
 
-    public void decreaseProductStock(int quantity) {
+    public void reduceProductStock(int quantity) {
         int remainQuantity = products.getFirst().decreaseStock(quantity);
         if (hasPromotionProduct())
             products.get(1).decreaseStock(remainQuantity);
@@ -40,20 +40,32 @@ public class PurchaseProduct {
         return products.get(0).getProductName();
     }
 
-    public int calculateRemainingStock() {
+    public int getRemainingStock() {
         return products.get(0).calculateRemainingStock(quantity);
     }
 
-    public int calculatePromotionRate(int remainingStock) {
+    public int getPromotionRate(int remainingStock) {
         return products.get(0).calculatePromotionRate(quantity - remainingStock);
     }
 
-    public int calculate() {
-        return products.get(0).calculate(quantity);
+    public int getPromotionUnits() {
+        return products.get(0).getPromotionUnits(quantity);
     }
 
     public boolean hasPromotionProduct() {
         return products.size() == 2;
+    }
+
+    public boolean isPromotionAdditionalProduct() {
+        return products.get(0).isPromotionAdditionalProduct(quantity);
+    }
+
+    public void decrease(int quantity) {
+        this.quantity -= quantity;
+    }
+
+    public boolean isWithinPromotionPeriod(LocalDateTime now) {
+        return products.getFirst().isWithinPromotionPeriod(LocalDate.from(now));
     }
 
     private void validateSufficientStock(int purchaseQuantity) {
@@ -67,17 +79,5 @@ public class PurchaseProduct {
         return products.stream()
                 .filter(Objects::nonNull)
                 .reduce(purchaseQuantity, (qty, product) -> product.calculateRemainingStock(qty), Integer::sum);
-    }
-
-    public boolean isPromotionAdditionalProduct() {
-        return products.get(0).isPromotionAdditionalProduct(quantity);
-    }
-
-    public void decrease(int quantity) {
-        this.quantity -= quantity;
-    }
-
-    public boolean nodatelate(LocalDateTime now) {
-        return products.getFirst().late(LocalDate.from(now));
     }
 }
