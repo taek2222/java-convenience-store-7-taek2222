@@ -15,10 +15,10 @@ public class InputView {
     private static final int COLUMN_LINE = 1;
     private static final String NEW_LINE = System.lineSeparator();
 
-    private final FileUtil fileInputView;
+    private final FileUtil fileUtil;
 
-    public InputView(FileUtil fileInputView) {
-        this.fileInputView = fileInputView;
+    public InputView(FileUtil fileUtil) {
+        this.fileUtil = fileUtil;
     }
 
     public String readPurchaseInput() {
@@ -51,7 +51,7 @@ public class InputView {
     }
 
     private List<List<String>> readFileData(String fileName) {
-        List<List<String>> fileContents = fileInputView.readFile(fileName);
+        List<List<String>> fileContents = fileUtil.readFile(fileName);
         validateNonEmptyFileContents(fileContents);
         return fileContents.subList(COLUMN_LINE, fileContents.size()); // 파일 첫 줄의 컬럼을 제외하고 반환
     }
