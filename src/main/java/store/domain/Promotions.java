@@ -34,4 +34,13 @@ public class Promotions {
     public int calculateRemainingItems(int quantity) {
         return quantity % (buy + get);
     }
+
+    public int calculatePromotionUnits(int quantity) {
+        return quantity / (buy + get);
+    }
+
+    public boolean isWithinPromotionPeriod(LocalDate date) {
+        return (date.isEqual(startDate) || date.isAfter(startDate)) &&
+                (date.isEqual(endDate) || date.isBefore(endDate));
+    }
 }
