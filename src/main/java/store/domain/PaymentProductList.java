@@ -11,7 +11,7 @@ public class PaymentProductList {
     private static final DecimalFormat PRICE_FORMAT = new DecimalFormat("###,###");
 
     private List<PaymentProduct> paymentProducts;
-    private int totalPirce = 0;
+    private int totalPrice = 0;
     private int totalPromotion = 0;
     private int membershipPrice = 0;
 
@@ -48,7 +48,7 @@ public class PaymentProductList {
         result.add(String.format(FORMAT.getMessage(), "행사할인", "", totalPromotionPrice()));
         result.add(String.format(FORMAT.getMessage(), "멤버십할인", "", "-" + PRICE_FORMAT.format(membershipPrice)));
         result.add(String.format(FORMAT.getMessage(), "내실돈", "",
-                PRICE_FORMAT.format(totalPirce - totalPromotion - membershipPrice)));
+                PRICE_FORMAT.format(totalPrice - totalPromotion - membershipPrice)));
 
         return result;
     }
@@ -60,10 +60,10 @@ public class PaymentProductList {
     }
 
     private String totalPrice() {
-        this.totalPirce = paymentProducts.stream()
+        this.totalPrice = paymentProducts.stream()
                 .mapToInt(PaymentProduct::getTotalPrice)
                 .sum();
-        return PRICE_FORMAT.format(totalPirce);
+        return PRICE_FORMAT.format(totalPrice);
     }
 
     private String totalPromotionPrice() {
