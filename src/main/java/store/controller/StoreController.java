@@ -2,7 +2,7 @@ package store.controller;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import store.domain.PaymentProductList;
@@ -27,17 +27,23 @@ public class StoreController {
     }
 
     public void run() {
-        displayWelcomeMessage();
+        Products products = loadStoreFiles();
+        displayWelcome(products);
 
-        PromotionsList promotionsList = loadPromotions();
-        Products products = loadProducts(promotionsList);
-
-        displayProductsInfo(products);
         List<PurchaseProduct> purchases = handlePurchases(products);
-
         PaymentProductList paymentProductList = processPurchases(purchases);
 
         displayPaymentInfo(paymentProductList);
+    }
+
+    private void displayWelcome(Products products) {
+        displayWelcomeMessage();
+        displayProductsInfo(products);
+    }
+
+    private Products loadStoreFiles() {
+        PromotionsList promotionsList = loadPromotions();
+        return loadProducts(promotionsList);
     }
 
     private PaymentProductList processPurchases(List<PurchaseProduct> purchases) {
@@ -48,39 +54,50 @@ public class StoreController {
             processSinglePurchase(paymentProductList, purchase, now);
         }
 
+        applyMembershipDiscountIfConfirmed(paymentProductList);
         return paymentProductList;
     }
 
     private void processSinglePurchase(PaymentProductList paymentProductList, PurchaseProduct purchase, LocalDateTime now) {
         if (purchase.hasPromotionProduct() && purchase.nodatelate(now)) {
             handlePromotionProduct(paymentProductList, purchase);
-        } else {
-            paymentProductList.addPaymentProduct(purchase.createPaymentProduct(0));
+            return;
         }
+        paymentProductList.addPaymentProduct(purchase.createPaymentProduct(0));
     }
+
 
     private void handlePromotionProduct(PaymentProductList paymentProductList, PurchaseProduct purchase) {
         int calculate = purchase.calculate();
         int remainingStock = purchase.calculateRemainingStock();
         if (remainingStock > 0) {
             handleRemainingStock(paymentProductList, purchase, remainingStock);
-        } else if (remainingStock != 0) {
-            handleNonZeroRemainingStock(paymentProductList, purchase);
-        } else {
-            paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate));
+            return;
         }
+        if (remainingStock < 0) {
+            handleNonZeroRemainingStock(paymentProductList, purchase);
+            return;
+        }
+        paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate));
     }
 
     private void handleRemainingStock(PaymentProductList paymentProductList, PurchaseProduct purchase, int remainingStock) {
-        int promotionRate = purchase.calculatePromotionRate(Math.abs(remainingStock));
-        int quantity = remainingStock + promotionRate;
-        outputView.printPromotionNotApplied(purchase.getProductName(), quantity);
-        boolean answer = inputView.readYesOrNoInput();
+        int quantity = calculateQuantity(purchase, remainingStock);
 
-        if (!answer) {
+        outputView.printPromotionNotApplied(purchase.getProductName(), quantity);
+        if (!inputView.readYesOrNoInput()) {
             purchase.decrease(quantity);
         }
 
+        addPaymentProduct(paymentProductList, purchase);
+    }
+
+    private int calculateQuantity(PurchaseProduct purchase, int remainingStock) {
+        int promotionRate = purchase.calculatePromotionRate(Math.abs(remainingStock));
+        return remainingStock + promotionRate;
+    }
+
+    private void addPaymentProduct(PaymentProductList paymentProductList, PurchaseProduct purchase) {
         paymentProductList.addPaymentProduct(purchase.createPaymentProduct(0));
     }
 
@@ -96,17 +113,19 @@ public class StoreController {
     }
 
     private void displayPaymentInfo(PaymentProductList paymentProductList) {
-        List<String> infos = paymentProductList.infoProduct();
-        List<String> strings = paymentProductList.infoPromotion();
-        boolean answer = inputView.readMembershipConfirmation();
-        if (answer) {
-            paymentProductList.membership();
-        }
-        List<String> result = paymentProductList.finalResult();
+        List<String> productInfos = paymentProductList.infoProduct();
+        List<String> promotionInfos = paymentProductList.infoPromotion();
+        List<String> finalResults = paymentProductList.finalResult();
 
-        outputView.printPaymentInfoResult(infos);
-        outputView.printPromotionInfoResult(strings);
-        outputView.printFinalResult(result);
+        outputView.printPaymentInfoResult(productInfos);
+        outputView.printPromotionInfoResult(promotionInfos);
+        outputView.printFinalResult(finalResults);
+    }
+
+    private void applyMembershipDiscountIfConfirmed(PaymentProductList paymentProductList) {
+        if (inputView.readMembershipConfirmation()) {
+            paymentProductList.applyMembershipDiscount();
+        }
     }
 
     private void displayWelcomeMessage() {
@@ -146,11 +165,10 @@ public class StoreController {
     }
 
     private List<PurchaseProduct> processPurchases(Products products, Map<String, Integer> purchases) {
-        LinkedList<PurchaseProduct> purchaseProducts = new LinkedList<>();
-        for (String productName : purchases.keySet()) {
-            List<Product> foundProducts = products.findProductByEqualsName(productName);
-            PurchaseProduct purchaseProduct = new PurchaseProduct(foundProducts, purchases.get(productName));
-            purchaseProducts.add(purchaseProduct);
+        List<PurchaseProduct> purchaseProducts = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : purchases.entrySet()) {
+            List<Product> foundProducts = products.findProductByName(entry.getKey());
+            purchaseProducts.add(new PurchaseProduct(foundProducts, entry.getValue()));
         }
         return purchaseProducts;
     }

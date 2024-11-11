@@ -16,7 +16,7 @@ public class Products {
                 .toList();
     }
 
-    public List<Product> findProductByEqualsName(String name) {
+    public List<Product> findProductByName(String name) {
         List<Product> list = products.stream()
                 .filter(product -> product.hasSameName(name))
                 .toList();

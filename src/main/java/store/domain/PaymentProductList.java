@@ -67,7 +67,7 @@ public class PaymentProductList {
         return "-" + PRICE_FORMAT.format(totalPromotion);
     }
 
-    public void membership() {
+    public void applyMembershipDiscount() {
         int price = (int) (paymentProducts.stream()
                 .filter(product -> !product.isPromotion())
                 .mapToInt(PaymentProduct::getTotalPrice)
