@@ -88,8 +88,8 @@ public class StoreController {
             handleNonZeroRemainingStock(paymentProductList, purchase);
             return;
         }
-        int calculate = purchase.getPromotionUnits();
-        paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate));
+        int promotionUnits = purchase.getPromotionUnits();
+        paymentProductList.addPaymentProduct(purchase.createPaymentProduct(promotionUnits));
     }
 
     private void handleRemainingStock(PaymentProductList paymentProductList, PurchaseProduct purchase,
@@ -99,8 +99,8 @@ public class StoreController {
         if (!confirmPromotionNotApplied(purchase.getProductName(), quantity)) {
             purchase.decrease(quantity);
         }
-        int calculate = purchase.getPromotionUnits();
-        paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate - 1));
+        int promotionUnits = purchase.getPromotionUnits();
+        paymentProductList.addPaymentProduct(purchase.createPaymentProduct(promotionUnits - 1));
     }
 
     private int calculateQuantity(PurchaseProduct purchase, int remainingStock) {
@@ -110,12 +110,12 @@ public class StoreController {
 
     private void handleNonZeroRemainingStock(PaymentProductList paymentProductList, PurchaseProduct purchase) {
         boolean answer = confirmPromotionAddition(purchase.getProductName());
-        int calculate = purchase.getPromotionUnits();
+        int promotionUnits = purchase.getPromotionUnits();
         if (answer) {
             purchase.increaseQuantityForPromotion();
-            calculate += 1;
+            promotionUnits += 1;
         }
-        paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate));
+        paymentProductList.addPaymentProduct(purchase.createPaymentProduct(promotionUnits));
     }
 
     private void displayPaymentInfo(PaymentProductList paymentProductList) {
