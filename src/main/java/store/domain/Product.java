@@ -33,6 +33,10 @@ public class Product {
         return info;
     }
 
+    public int decreaseStock(int quantity) {
+        return this.quantity.decreaseStock(quantity);
+    }
+
     public int calculateRemainingStock(int purchaseQuantity) {
         return quantity.calculateDifference(purchaseQuantity);
     }

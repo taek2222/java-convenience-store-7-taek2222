@@ -56,8 +56,16 @@ public class StoreController {
             processSinglePurchase(paymentProductList, purchase, now);
         }
 
+        decreaseProductStock(purchases, paymentProductList);
         applyMembershipDiscountIfConfirmed(paymentProductList);
         return paymentProductList;
+    }
+
+    private void decreaseProductStock(List<PurchaseProduct> purchases, PaymentProductList paymentProductList) {
+        List<Integer> quantities = paymentProductList.getAllProductQuantities();
+        for (int i = 0; i < purchases.size(); i++) {
+            purchases.get(i).decreaseProductStock(quantities.get(i));
+        }
     }
 
     private void processSinglePurchase(PaymentProductList paymentProductList, PurchaseProduct purchase, LocalDateTime now) {
@@ -70,16 +78,16 @@ public class StoreController {
 
 
     private void handlePromotionProduct(PaymentProductList paymentProductList, PurchaseProduct purchase) {
-        int calculate = purchase.calculate();
         int remainingStock = purchase.calculateRemainingStock();
         if (remainingStock > 0) {
             handleRemainingStock(paymentProductList, purchase, remainingStock);
             return;
         }
-        if (remainingStock < 0) {
+        if (remainingStock < 0 && purchase.isPromotionAdditionalProduct()) {
             handleNonZeroRemainingStock(paymentProductList, purchase);
             return;
         }
+        int calculate = purchase.calculate();
         paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate));
     }
 
@@ -89,8 +97,8 @@ public class StoreController {
         if (!confirmPromotionNotApplied(purchase.getProductName(), quantity)) {
             purchase.decrease(quantity);
         }
-
-        addPaymentProduct(paymentProductList, purchase);
+        int calculate = purchase.calculate();
+        paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate - 1));
     }
 
     private int calculateQuantity(PurchaseProduct purchase, int remainingStock) {
@@ -98,15 +106,11 @@ public class StoreController {
         return remainingStock + promotionRate;
     }
 
-    private void addPaymentProduct(PaymentProductList paymentProductList, PurchaseProduct purchase) {
-        paymentProductList.addPaymentProduct(purchase.createPaymentProduct(0));
-    }
-
     private void handleNonZeroRemainingStock(PaymentProductList paymentProductList, PurchaseProduct purchase) {
         boolean answer = confirmPromotionAddition(purchase.getProductName());
-        purchase.calculatePromotionRate(0);
         int calculate = purchase.calculate();
         if (answer) {
+            purchase.promotionIncreaseQuantity();
             calculate += 1;
         }
         paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate));

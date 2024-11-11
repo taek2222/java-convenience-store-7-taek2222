@@ -23,6 +23,12 @@ public class PaymentProductList {
         paymentProducts.add(product);
     }
 
+    public List<Integer> getAllProductQuantities() {
+        return paymentProducts.stream()
+                .map(PaymentProduct::getQuantity)
+                .toList();
+    }
+
     public List<String> infoProduct() {
         return paymentProducts.stream()
                 .map(PaymentProduct::toString)

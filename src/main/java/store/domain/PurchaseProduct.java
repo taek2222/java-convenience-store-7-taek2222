@@ -26,6 +26,16 @@ public class PurchaseProduct {
         );
     }
 
+    public void promotionIncreaseQuantity() {
+        quantity++;
+    }
+
+    public void decreaseProductStock(int quantity) {
+        int remainQuantity = products.getFirst().decreaseStock(quantity);
+        if (hasPromotionProduct())
+            products.get(1).decreaseStock(remainQuantity);
+    }
+
     public String getProductName() {
         return products.get(0).getProductName();
     }

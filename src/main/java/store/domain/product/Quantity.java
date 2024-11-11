@@ -30,6 +30,17 @@ public class Quantity {
         return DECIMAL_FORMAT.format(quantity) + UNIT;
     }
 
+    public int decreaseStock(int quantity) {
+        int remainingQuantity = this.quantity - quantity;
+        if (remainingQuantity < 0) {
+            int deficit = -remainingQuantity;
+            this.quantity = 0;
+            return deficit;
+        }
+        this.quantity = remainingQuantity;
+        return 0;
+    }
+
     public int calculateDifference(int quantity) {
         return quantity - this.quantity;
     }
