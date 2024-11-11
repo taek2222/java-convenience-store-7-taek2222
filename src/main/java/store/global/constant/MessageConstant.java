@@ -8,7 +8,7 @@ public enum MessageConstant {
     OUTPUT_PROMOTION_ADD("현재 %s은(는) 1개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)"),
 
     OUTPUT_HEADER_STORE("==============W 편의점================"),
-    OUTPUT_HEADER_PROMOTION("=============증      정==============="),
+    OUTPUT_HEADER_PROMOTION("=============증     정==============="),
     OUTPUT_HEADER_SEPARATOR("===================================="),
 
     FORMAT("%-18s %-8s %5s"),
