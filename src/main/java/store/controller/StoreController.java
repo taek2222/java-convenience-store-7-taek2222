@@ -28,12 +28,14 @@ public class StoreController {
 
     public void run() {
         Products products = loadStoreFiles();
-        displayWelcome(products);
 
-        List<PurchaseProduct> purchases = handlePurchases(products);
-        PaymentProductList paymentProductList = processPurchases(purchases);
+        do {
+            displayWelcome(products);
+            List<PurchaseProduct> purchases = handlePurchases(products);
+            PaymentProductList paymentProductList = processPurchases(purchases);
 
-        displayPaymentInfo(paymentProductList);
+            displayPaymentInfo(paymentProductList);
+        } while (inputView.readAdditionalPurchaseConfirmation());
     }
 
     private void displayWelcome(Products products) {
