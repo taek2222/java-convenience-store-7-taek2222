@@ -73,11 +73,11 @@ public class Product {
         return promotions.isPromotionApplicable(quantity);
     }
 
-    public int calculate(int quantity) {
+    public int getPromotionUnits(int quantity) {
         return promotions.calculatePromotionUnits(quantity);
     }
 
-    public boolean late(LocalDate date) {
+    public boolean isWithinPromotionPeriod(LocalDate date) {
         return promotions.isWithinPromotionPeriod(date);
     }
 }

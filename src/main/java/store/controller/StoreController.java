@@ -64,12 +64,12 @@ public class StoreController {
     private void decreaseProductStock(List<PurchaseProduct> purchases, PaymentProductList paymentProductList) {
         List<Integer> quantities = paymentProductList.getAllProductQuantities();
         for (int i = 0; i < purchases.size(); i++) {
-            purchases.get(i).decreaseProductStock(quantities.get(i));
+            purchases.get(i).reduceProductStock(quantities.get(i));
         }
     }
 
     private void processSinglePurchase(PaymentProductList paymentProductList, PurchaseProduct purchase, LocalDateTime now) {
-        if (purchase.hasPromotionProduct() && purchase.nodatelate(now)) {
+        if (purchase.hasPromotionProduct() && purchase.isWithinPromotionPeriod(now)) {
             handlePromotionProduct(paymentProductList, purchase);
             return;
         }
@@ -78,7 +78,7 @@ public class StoreController {
 
 
     private void handlePromotionProduct(PaymentProductList paymentProductList, PurchaseProduct purchase) {
-        int remainingStock = purchase.calculateRemainingStock();
+        int remainingStock = purchase.getRemainingStock();
         if (remainingStock > 0) {
             handleRemainingStock(paymentProductList, purchase, remainingStock);
             return;
@@ -87,7 +87,7 @@ public class StoreController {
             handleNonZeroRemainingStock(paymentProductList, purchase);
             return;
         }
-        int calculate = purchase.calculate();
+        int calculate = purchase.getPromotionUnits();
         paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate));
     }
 
@@ -97,20 +97,20 @@ public class StoreController {
         if (!confirmPromotionNotApplied(purchase.getProductName(), quantity)) {
             purchase.decrease(quantity);
         }
-        int calculate = purchase.calculate();
+        int calculate = purchase.getPromotionUnits();
         paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate - 1));
     }
 
     private int calculateQuantity(PurchaseProduct purchase, int remainingStock) {
-        int promotionRate = purchase.calculatePromotionRate(Math.abs(remainingStock));
+        int promotionRate = purchase.getPromotionRate(Math.abs(remainingStock));
         return remainingStock + promotionRate;
     }
 
     private void handleNonZeroRemainingStock(PaymentProductList paymentProductList, PurchaseProduct purchase) {
         boolean answer = confirmPromotionAddition(purchase.getProductName());
-        int calculate = purchase.calculate();
+        int calculate = purchase.getPromotionUnits();
         if (answer) {
-            purchase.promotionIncreaseQuantity();
+            purchase.increaseQuantityForPromotion();
             calculate += 1;
         }
         paymentProductList.addPaymentProduct(purchase.createPaymentProduct(calculate));
