@@ -1,4 +1,4 @@
-package store.view;
+package store.global.util;
 
 import static store.global.constant.ErrorMessage.FILE_CONTAINS_BLANK_CONTENT;
 import static store.global.constant.ErrorMessage.FILE_NOT_FOUND;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import store.global.exception.FileException;
 
-public class FileInputView {
+public class FileUtil {
 
     private static final String DIRECTORY_PATH = "src/main/resources/";
     private static final String LINE_DELIMITER = ",";

@@ -4,6 +4,7 @@ import static store.view.InputValidator.validateNonEmptyFileContents;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
+import store.global.util.FileUtil;
 
 public class InputView {
     private static final String PURCHASE_MESSAGE = "구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])";
@@ -14,9 +15,9 @@ public class InputView {
     private static final int COLUMN_LINE = 1;
     private static final String NEW_LINE = System.lineSeparator();
 
-    private final FileInputView fileInputView;
+    private final FileUtil fileInputView;
 
-    public InputView(FileInputView fileInputView) {
+    public InputView(FileUtil fileInputView) {
         this.fileInputView = fileInputView;
     }
 

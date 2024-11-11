@@ -1,4 +1,4 @@
-package store.view;
+package store.global.util;
 
 import static store.global.constant.ErrorMessage.FILE_NOT_FOUND;
 
@@ -8,13 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import store.global.exception.FileException;
 
-public class FileInputViewTest {
+public class FileUtilTest {
 
-    private FileInputView fileInputView;
+    private FileUtil fileInputView;
 
     @BeforeEach
     void setup() {
-        fileInputView = new FileInputView();
+        fileInputView = new FileUtil();
     }
 
     @Test
