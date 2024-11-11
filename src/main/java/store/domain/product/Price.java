@@ -32,7 +32,8 @@ public class Price {
     }
 
     private void validateRange(final int price) {
-        if (price < MINIMUM_PRICE || price > MAXIMUM_PRICE)
+        if (price < MINIMUM_PRICE || price > MAXIMUM_PRICE) {
             throw new IllegalArgumentException(INVALID_PRICE_OUT_OF_RANGE.getMessage());
+        }
     }
 }

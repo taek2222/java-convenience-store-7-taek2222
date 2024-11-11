@@ -25,8 +25,9 @@ public class Quantity {
 
     @Override
     public String toString() {
-        if (quantity == 0)
+        if (quantity == 0) {
             return "재고 없음";
+        }
         return DECIMAL_FORMAT.format(quantity) + UNIT;
     }
 
