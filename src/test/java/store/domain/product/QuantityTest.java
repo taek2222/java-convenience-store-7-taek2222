@@ -59,4 +59,42 @@ public class QuantityTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_QUANTITY_OUT_OF_RANGE.getMessage());
     }
+
+    @Test
+    void 재고를_감소시킨다() {
+        // given
+        Quantity quantity = new Quantity("1000");
+
+        // when
+        int deficit = quantity.decreaseStock(500);
+
+        // then
+        assertThat(quantity.toString()).isEqualTo("500개");
+        assertThat(deficit).isEqualTo(0);
+    }
+
+    @Test
+    void 재고를_감소시킬_때_부족한_수량을_반환한다() {
+        // given
+        Quantity quantity = new Quantity("1000");
+
+        // when
+        int deficit = quantity.decreaseStock(1500);
+
+        // then
+        assertThat(quantity.toString()).isEqualTo("재고 없음");
+        assertThat(deficit).isEqualTo(500);
+    }
+
+    @Test
+    void 수량_차이를_계산한다() {
+        // given
+        Quantity quantity = new Quantity("1000");
+
+        // when
+        int difference = quantity.calculateDifference(1500);
+
+        // then
+        assertThat(difference).isEqualTo(500);
+    }
 }
