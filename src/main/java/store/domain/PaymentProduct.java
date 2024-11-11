@@ -23,7 +23,7 @@ public class PaymentProduct {
     @Override
     public String toString() {
         String formattedPrice = PRICE_FORMAT.format(quantity * price);
-        return String.format(FORMAT, name, quantity, formattedPrice);
+        return String.format(FORMAT.getMessage(), name, quantity, formattedPrice);
     }
 
     public boolean isPromotion() {
@@ -31,7 +31,7 @@ public class PaymentProduct {
     }
 
     public String buildPromotion() {
-        return String.format(FORMAT, name, promotion, "");
+        return String.format(FORMAT.getMessage(), name, promotion, "");
     }
 
     public int getQuantity() {

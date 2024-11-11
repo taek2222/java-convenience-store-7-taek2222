@@ -38,10 +38,10 @@ public class PaymentProductList {
 
     public List<String> finalResult() {
         List<String> result = new ArrayList<>();
-        result.add(String.format(FORMAT, "총구매액", totalQuantity(), totalPrice()));
-        result.add(String.format(FORMAT, "행사할인", "", totalPromotionPrice()));
-        result.add(String.format(FORMAT, "멤버십할인", "", "-" + PRICE_FORMAT.format(membershipPrice)));
-        result.add(String.format(FORMAT, "내실돈", "", PRICE_FORMAT.format(totalPirce - totalPromotion - membershipPrice)));
+        result.add(String.format(FORMAT.getMessage(), "총구매액", totalQuantity(), totalPrice()));
+        result.add(String.format(FORMAT.getMessage(), "행사할인", "", totalPromotionPrice()));
+        result.add(String.format(FORMAT.getMessage(), "멤버십할인", "", "-" + PRICE_FORMAT.format(membershipPrice)));
+        result.add(String.format(FORMAT.getMessage(), "내실돈", "", PRICE_FORMAT.format(totalPirce - totalPromotion - membershipPrice)));
 
         return result;
     }
