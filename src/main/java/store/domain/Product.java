@@ -1,5 +1,6 @@
 package store.domain;
 
+import java.time.LocalDate;
 import store.domain.product.Name;
 import store.domain.product.Price;
 import store.domain.product.Quantity;
@@ -60,7 +61,19 @@ public class Product {
         return name.toString();
     }
 
+    public int getProductPrice() {
+        return price.getPrice();
+    }
+
     public boolean isPromotionAdditionalProduct(int quantity) {
         return promotions.isPromotionApplicable(quantity);
+    }
+
+    public int calculate(int quantity) {
+        return promotions.calculatePromotionUnits(quantity);
+    }
+
+    public boolean late(LocalDate date) {
+        return promotions.isWithinPromotionPeriod(date);
     }
 }
